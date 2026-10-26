@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if query %}{{ query }} — Search{% else %}Search properties{% endif %} | Makao
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="search-hero">
+    <div class="container">
+        <p class="search-eyebrow">Search results</p>
+        <h1 class="search-title">
+            {% if query %}
+                "{{ query }}"
+            {% else %}
+                Browse properties
+            {% endif %}
+        </h1>
+        <p class="search-meta">
+            {{ result_count }} propert{{ result_count|pluralize:"y,ies" }} found
+            {% if active_category != "all" %}in <strong>{{ active_category|title }}s</strong>{% endif %}
+        </p>
+
+        <form class="search-form search-form--compact" method="get" action="{% url 'core:search' %}">
+            <input type="hidden" name="category" value="{{ active_category }}">
+
+            <div class="search-field">
+                <label for="q-location">Location</label>
+                <input id="q-location" type="text" name="q" value="{{ query }}" placeholder="Nairobi, Diani, Westlands…">
+            </div>
+
+            <div class="search-field">
+                <label for="q-type">Property type</label>
+                <select id="q-type" name="type">
+                    <option value="">Any type</option>
+                    <option value="apartment" {% if active_type == "apartment" %}selected{% endif %}>Apartment</option>
+                    <option value="villa"     {% if active_type == "villa" %}selected{% endif %}>Villa</option>
+                    <option value="house"     {% if active_type == "house" %}selected{% endif %}>House</option>
+                    <option value="studio"    {% if active_type == "studio" %}selected{% endif %}>Studio</option>
+                    <option value="land"      {% if active_type == "land" %}selected{% endif %}>Land</option>
+                </select>
+            </div>
+
+            <div class="search-field">
+                <label for="q-budget">Budget (KSh)</label>
+                <select id="q-budget" name="max">
+                    <option value="">Any budget</option>
+                    <option value="50000"     {% if active_max == "50000" %}selected{% endif %}>Up to 50,000</option>
+                    <option value="100000"    {% if active_max == "100000" %}selected{% endif %}>Up to 100,000</option>
+                    <option value="500000"    {% if active_max == "500000" %}selected{% endif %}>Up to 500,000</option>
+                    <option value="2000000"   {% if active_max == "2000000" %}selected{% endif %}>Up to 2M</option>
+                    <option value="10000000"  {% if active_max == "10000000" %}selected{% endif %}>Up to 10M</option>
+                    <option value="50000000"  {% if active_max == "50000000" %}selected{% endif %}>Up to 50M</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary search-submit">
+                Search
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="listings-section">
+    <div class="container">
+
+        <div class="filter-pills" data-filter-pills>
+            <button type="button" class="pill {% if active_category == 'all' %}is-active{% endif %}" data-filter="all">All properties</button>
+            <button type="button" class="pill {% if active_category == 'airbnb' %}is-active{% endif %}" data-filter="airbnb">Airbnbs</button>
+            <button type="button" class="pill {% if active_category == 'rental' %}is-active{% endif %}" data-filter="rental">Rentals</button>
+            <button type="button" class="pill {% if active_category == 'land' %}is-active{% endif %}" data-filter="land">Land</button>
+            <button type="button" class="pill {% if active_category == 'sale' %}is-active{% endif %}" data-filter="sale">For sale</button>
+        </div>
+
+        <div data-listings-results>
+            {% if properties %}
+                <div class="listings-grid">
+                    {% for property in properties %}
+                        {% include "partials/_property_card.html" with property=property %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p class="empty-title">No properties match your search.</p>
+                    <p class="empty-sub">Try widening your budget or clearing the category.</p>
+                    <a href="{% url 'core:search' %}" class="btn btn-primary">Reset search</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/listings.js' %}" defer></script>
+{% endblock %}

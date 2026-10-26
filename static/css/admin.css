@@ -1,0 +1,218 @@
+/* =========================================================
+   Makao — Admin overrides
+   Sharp corners, on-brand colors, locked to light theme.
+   ========================================================= */
+
+/* ---------- Brand header ---------- */
+#header {
+    background: var(--color-navy);
+    color: #ffffff;
+    border-bottom: 3px solid var(--color-slate);
+    padding: 14px 24px;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+#branding h1 a::after {
+    content: ".";
+    color: var(--color-orange);
+    margin-left: 1px;
+}
+#user-tools {
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+#user-tools a { color: #ffffff; }
+#user-tools a:hover { color: var(--color-aqua); }
+
+/* ---------- Hide broken theme toggle icons ---------- */
+.theme-toggle,
+.theme-toggle__button,
+button[aria-label*="theme" i],
+button[title*="theme" i],
+#theme-toggle {
+    display: none !important;
+}
+
+/* ---------- Breadcrumbs ---------- */
+div.breadcrumbs {
+    background: var(--color-slate);
+    color: #ffffff;
+    padding: 10px 24px;
+}
+div.breadcrumbs a { color: #ffffff; }
+div.breadcrumbs a:hover { color: var(--color-aqua); }
+
+/* ---------- Modules & tables ---------- */
+.module,
+.module table {
+    background: #ffffff;
+    border: 1px solid #e2e6ee;
+}
+.module h2,
+.module caption {
+    background: var(--color-navy);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 10px 12px;
+}
+
+/* ---------- List table ---------- */
+#result_list {
+    background: #ffffff;
+}
+#result_list thead th {
+    background: #f1f4f9;
+    color: var(--color-navy);
+    font-weight: 600;
+    border-bottom: 1px solid #d8dde8;
+}
+#result_list tbody tr {
+    background: #ffffff;
+}
+#result_list tbody tr:nth-child(even) {
+    background: #fafbfd;
+}
+#result_list tbody tr:hover {
+    background: #eef2f8;
+}
+#result_list tbody tr.selected {
+    background: #e6eef9 !important;
+}
+
+/* ---------- Status pills ---------- */
+.mk-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+.mk-pill--airbnb { background: #447ac3; }
+.mk-pill--rental { background: #17214c; }
+.mk-pill--land   { background: #54dfd9; color: #17214c; }
+.mk-pill--sale   { background: #fb8e4b; }
+
+.mk-pill--on   { background: #16a34a; }
+.mk-pill--off  { background: #9ca3af; }
+.mk-pill--feat { background: #fb8e4b; }
+
+/* ---------- Thumbnails ---------- */
+.mk-thumb {
+    width: 64px;
+    height: 48px;
+    object-fit: cover;
+    border: 1px solid #e2e6ee;
+    display: block;
+    background: #f1f4f9;
+}
+.mk-thumb-fallback {
+    width: 64px;
+    height: 48px;
+    min-height: 48px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f4f9;
+    border: 1px solid #e2e6ee;
+    color: #a18f83;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ---------- Buttons & links ---------- */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input {
+    background: var(--color-slate);
+    color: #ffffff;
+    border: none;
+    padding: 9px 16px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover {
+    background: #3567a8;
+}
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+    background: var(--color-orange);
+}
+.button.default:hover,
+input[type="submit"].default:hover,
+.submit-row input.default:hover {
+    background: #e97a37;
+}
+
+/* ---------- Strip rounded corners everywhere ---------- */
+.button, input, select, textarea,
+.module, .inline-group, fieldset,
+#changelist-filter h2, #changelist-filter h3,
+.object-tools a, .paginator a, .paginator .this-page,
+.readonly, .help, .selector,
+#changelist .actions, #changelist-search {
+    border-radius: 0 !important;
+}
+
+/* ---------- Lock admin to light theme regardless of OS ---------- */
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+    background: #f8fafc !important;
+    color: #17214c !important;
+}
+html[data-theme="dark"] .module,
+html[data-theme="dark"] #result_list,
+html[data-theme="dark"] #result_list tbody tr {
+    background: #ffffff;
+}
+html[data-theme="dark"] #result_list thead th {
+    background: #f1f4f9;
+    color: #17214c;
+}
+html[data-theme="dark"] #result_list tbody tr:nth-child(even) {
+    background: #fafbfd;
+}
+html[data-theme="dark"] #result_list tbody tr:hover {
+    background: #eef2f8;
+}
+html[data-theme="dark"] #changelist-filter,
+html[data-theme="dark"] #changelist-filter h2,
+html[data-theme="dark"] #changelist-filter h3 {
+    background: #ffffff;
+    color: #17214c;
+}
+html[data-theme="dark"] #nav-sidebar,
+html[data-theme="dark"] #nav-sidebar .module,
+html[data-theme="dark"] #nav-sidebar .module th,
+html[data-theme="dark"] #nav-sidebar .module caption {
+    background: #ffffff;
+    color: #17214c;
+}

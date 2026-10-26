@@ -1,0 +1,87 @@
+/* Add to the existing auth.css */
+
+.auth-container--narrow {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+}
+
+.auth-panel--center {
+    text-align: center;
+}
+.auth-panel--center .auth-sub {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 380px;
+}
+
+/* ---------- Google button ---------- */
+.btn-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-white);
+    color: var(--color-navy);
+    border: 1px solid var(--color-border-strong, #17214c);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+    transition: background var(--t-fast), color var(--t-fast);
+}
+.btn-google:hover {
+    background: var(--color-offwhite);
+}
+
+/* ---------- Divider ---------- */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-taupe);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: var(--space-2) 0;
+}
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+}
+
+/* ---------- Remember + forgot row ---------- */
+.auth-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+.auth-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+}
+.auth-checkbox input {
+    width: auto;
+    accent-color: var(--color-slate);
+}
+.auth-link-small {
+    font-size: var(--fs-sm);
+    color: var(--color-slate);
+    font-weight: var(--fw-medium);
+}
+.auth-link-small:hover { color: var(--color-navy); }
+
+/* ---------- Actions row ---------- */
+.auth-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--space-4);
+}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Submission received | Makao{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/list_property.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="submit-success">
+    <div class="container">
+        <div class="success-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+        </div>
+        <h1 class="success-title">Submission received</h1>
+        <p class="success-sub">
+            Thanks for listing on Makao. Our team will review your property and publish it within
+            24 hours. You'll be contacted if we need anything else.
+        </p>
+        <div class="success-actions">
+            <a href="{% url 'core:home' %}" class="btn btn-primary">Back to home</a>
+            <a href="{% url 'core:search' %}" class="btn btn-outline">Browse other listings</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ agent.name }} — Agent on Makao{% endblock %}
+{% block meta_description %}{{ agent.bio|default:agent.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+<link rel="stylesheet" href="{% static 'css/agent.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="agent-hero">
+    <div class="container agent-hero-inner">
+        <div class="agent-hero-photo">
+            {% if agent.photo_url %}
+                <img src="{{ agent.photo_url }}" alt="{{ agent.name }}">
+            {% else %}
+                <span class="agent-initial">{{ agent.initial }}</span>
+            {% endif %}
+        </div>
+
+        <div class="agent-hero-body">
+            <p class="agent-eyebrow">Host / Agent</p>
+            <h1 class="agent-title">
+                {{ agent.name }}
+                {% if agent.is_verified %}
+                    <span class="agent-verified" title="Verified agent">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7"/>
+                        </svg>
+                        Verified
+                    </span>
+                {% endif %}
+            </h1>
+
+            <p class="agent-meta">
+                {{ listing_count }} active listing{{ listing_count|pluralize }}
+                {% if agent.phone %}· +{{ agent.phone }}{% endif %}
+            </p>
+
+            {% if agent.bio %}
+                <p class="agent-bio">{{ agent.bio|linebreaksbr }}</p>
+            {% endif %}
+
+            <div class="agent-actions">
+                <a href="https://wa.me/{{ agent.phone }}?text=Hi%20{{ agent.name|urlencode }},%20I%20found%20your%20profile%20on%20Makao."
+                   target="_blank"
+                   rel="noopener"
+                   class="btn btn-primary">
+                    WhatsApp
+                </a>
+                <a href="tel:+{{ agent.phone }}" class="btn btn-outline">
+                    Call
+                </a>
+                {% if agent.email %}
+                    <a href="mailto:{{ agent.email }}" class="btn btn-outline">
+                        Email
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="listings-section">
+    <div class="container">
+
+        <div class="listings-header">
+            <div>
+                <h2 class="section-title">Listings by {{ agent.name }}</h2>
+                <p class="section-sub">
+                    {{ listing_count }} active listing{{ listing_count|pluralize }}
+                </p>
+            </div>
+            <a href="{% url 'core:search' %}" class="link-arrow">
+                Browse all properties
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+            </a>
+        </div>
+
+        {% if listings %}
+            <div class="listings-grid">
+                {% for property in listings %}
+                    {% include "partials/_property_card.html" with property=property %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p class="empty-title">No active listings right now.</p>
+                <p class="empty-sub">{{ agent.name }} hasn't published anything yet — check back soon.</p>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/listings.js' %}" defer></script>
+{% endblock %}

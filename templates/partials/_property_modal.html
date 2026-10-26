@@ -1,0 +1,61 @@
+<div class="modal" id="property-modal" hidden>
+    <div class="modal-backdrop" data-modal-close></div>
+
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button type="button" class="modal-close" data-modal-close aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+
+        <div class="modal-body">
+            <div class="modal-media" data-modal-media>
+                <!-- filled by JS -->
+            </div>
+
+            <div class="modal-content">
+                <p class="modal-eyebrow" data-modal-category>Category</p>
+                <h2 class="modal-title" id="modal-title" data-modal-title>Loading…</h2>
+                <p class="modal-location" data-modal-location></p>
+
+                <div class="modal-price" data-modal-price></div>
+
+                <div class="modal-section">
+                    <h3 class="modal-heading">Overview</h3>
+                    <p class="modal-desc" data-modal-description></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-heading">Details</h3>
+                    <ul class="modal-specs" data-modal-specs></ul>
+                </div>
+
+                <div class="modal-agent">
+                    <div class="modal-agent-info">
+                        <p class="agent-label">Host / Agent</p>
+                        <p class="agent-name" data-modal-agent></p>
+                        <p class="agent-phone text-taupe" data-modal-phone></p>
+                    </div>
+                    <div class="modal-agent-actions">
+                        <a class="btn btn-primary" data-modal-whatsapp href="#" target="_blank" rel="noopener">
+                            WhatsApp
+                        </a>
+                        <a class="btn btn-outline" data-modal-call href="#">
+                            Call
+                        </a>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <a class="modal-view-full" data-modal-view-full href="#">
+                        View full listing
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

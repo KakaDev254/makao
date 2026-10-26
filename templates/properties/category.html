@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ meta.title }} | Makao{% endblock %}
+{% block meta_description %}{{ meta.sub }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="cat-hero cat-hero--{{ category.slug }}">
+    <div class="container">
+        <p class="cat-eyebrow">{{ meta.eyebrow }}</p>
+        <h1 class="cat-title">{{ meta.title }}</h1>
+        <p class="cat-sub">{{ meta.sub }}</p>
+
+        <form class="cat-search" method="get" action="{% url 'core:search' %}">
+            <input type="hidden" name="category" value="{{ category.slug }}">
+
+            <div class="search-field">
+                <label for="q-location">Location</label>
+                <input id="q-location" type="text" name="q" placeholder="Where in Kenya?">
+            </div>
+
+            <div class="search-field">
+                <label for="q-type">Property type</label>
+                <select id="q-type" name="type">
+                    <option value="">Any type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="villa">Villa</option>
+                    <option value="house">House</option>
+                    <option value="studio">Studio</option>
+                    <option value="land">Land</option>
+                </select>
+            </div>
+
+            <div class="search-field">
+                <label for="q-budget">Budget (KSh)</label>
+                <select id="q-budget" name="max">
+                    <option value="">Any budget</option>
+                    <option value="50000">Up to 50,000</option>
+                    <option value="100000">Up to 100,000</option>
+                    <option value="500000">Up to 500,000</option>
+                    <option value="2000000">Up to 2M</option>
+                    <option value="10000000">Up to 10M</option>
+                    <option value="50000000">Up to 50M</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary search-submit">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="listings-section">
+    <div class="container">
+
+        <div class="listings-header">
+            <div>
+                <h2 class="section-title">{{ meta.title }}</h2>
+                <p class="section-sub">
+                    {{ result_count }} propert{{ result_count|pluralize:"y,ies" }} available
+                </p>
+            </div>
+            <a href="{% url 'core:search' %}?category={{ category.slug }}" class="link-arrow">
+                See all in {{ category.name }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+            </a>
+        </div>
+
+        {% if properties %}
+            <div class="listings-grid">
+                {% for property in properties %}
+                    {% include "partials/_property_card.html" with property=property %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p class="empty-title">No listings in this category yet.</p>
+                <p class="empty-sub">Check back soon, or browse all properties.</p>
+                <a href="{% url 'core:search' %}" class="btn btn-primary">Browse all</a>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- Cross-links to other categories -->
+<section class="cat-cross">
+    <div class="container">
+        <h2 class="section-title">Explore more</h2>
+        <p class="section-sub">Other places on Makao.</p>
+        <div class="category-grid">
+            {% for cat in categories %}
+                {% if cat.slug != category.slug %}
+                <a href="{% url cat.landing_url_name %}" class="category-card">
+                    <div class="category-icon category-icon--{{ cat.slug }}">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 20h18M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6"/>
+                        </svg>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-name">{{ cat.name }}</p>
+                        <p class="category-tag">{{ cat.tagline }}</p>
+                    </div>
+                    <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                    </svg>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/listings.js' %}" defer></script>
+{% endblock %}

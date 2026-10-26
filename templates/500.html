@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Something went wrong — Makao</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <section class="error-page">
+        <div class="container">
+            <p class="error-code">500</p>
+            <h1 class="error-title">Something went wrong on our end.</h1>
+            <p class="error-sub">
+                We're looking into it. In the meantime, try refreshing the page
+                or heading back to the home screen.
+            </p>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">Back to home</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

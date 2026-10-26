@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account_center.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="center-page">
+    <div class="container center-layout">
+
+        <aside class="center-sidebar">
+            <p class="center-sidebar-eyebrow">Account</p>
+
+            <nav class="center-nav">
+                <a href="{% url 'account_center_home' %}"
+                   class="center-nav-link {% if request.resolver_match.url_name == 'center_home' %}is-active{% endif %}">
+                    Overview
+                </a>
+                <a href="{% url 'account_center_profile' %}"
+                   class="center-nav-link {% if request.resolver_match.url_name == 'center_profile' %}is-active{% endif %}">
+                    Profile
+                </a>
+                <a href="{% url 'accounts:center_password' %}"
+                   class="center-nav-link {% if request.resolver_match.url_name == 'center_password' %}is-active{% endif %}">
+                    Password
+                </a>
+                <a href="{% url 'account_email' %}"
+                   class="center-nav-link {% if request.resolver_match.url_name == 'account_email' %}is-active{% endif %}">
+                    Email addresses
+                </a>
+                <a href="{% url 'socialaccount_connections' %}"
+                   class="center-nav-link {% if request.resolver_match.url_name == 'socialaccount_connections' %}is-active{% endif %}">
+                    Connected accounts
+                </a>
+                <a href="{% url 'account_center_delete' %}"
+                   class="center-nav-link center-nav-link--danger {% if request.resolver_match.url_name == 'center_delete' %}is-active{% endif %}">
+                    Delete account
+                </a>
+            </nav>
+
+            <div class="center-sidebar-foot">
+                <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline btn-block">Log out</button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="center-content">
+            {% block center_content %}{% endblock %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Makao — Find your kind of place in Kenya{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="background-image: url('{{ hero_image }}');">
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-inner">
+        <p class="hero-eyebrow">A place for every chapter</p>
+
+        <h1 class="hero-title">
+            Find your kind<br>
+            of <span class="hero-accent">place.</span>
+        </h1>
+
+        <p class="hero-sub">
+            A weekend escape. A new home. A fresh start.<br>
+            Discover properties and possibilities across Kenya.
+        </p>
+
+        <!-- Tabbed search card -->
+        <div class="search-card">
+
+            <div class="search-tabs" role="tablist">
+                <button class="search-tab" role="tab" data-cat="airbnb" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                    Airbnbs
+                </button>
+                <button class="search-tab is-active" role="tab" data-cat="rental" aria-selected="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="8" cy="15" r="4" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M11 12l9-9 2 2-2 2 2 2-2 2-2-2-2 2" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                    Rentals
+                </button>
+                <button class="search-tab" role="tab" data-cat="land" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M3 20h18M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                    Land
+                </button>
+                <button class="search-tab" role="tab" data-cat="sale" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M4 11l8-7 8 7v9H4z" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                    For sale
+                </button>
+            </div>
+
+            <form class="search-form" method="get" action="{% url 'core:search' %}" id="hero-search">
+                <input type="hidden" name="category" value="rental" id="hero-search-category">
+
+                <div class="search-field">
+                    <label for="q-location">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z" stroke="currentColor" stroke-width="1.7"/>
+                            <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/>
+                        </svg>
+                        Location
+                    </label>
+                    <input id="q-location" type="text" name="q" placeholder="Where do you want to be?">
+                </div>
+
+                <div class="search-field">
+                    <label for="q-type">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M4 10h16M10 10v10" stroke="currentColor" stroke-width="1.7"/>
+                        </svg>
+                        Property type
+                    </label>
+                    <select id="q-type" name="type">
+                        <option value="">Any type</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="villa">Villa</option>
+                        <option value="house">House</option>
+                        <option value="studio">Studio</option>
+                        <option value="land">Land</option>
+                    </select>
+                </div>
+
+                <div class="search-field">
+                    <label for="q-budget">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M4 7h16M4 12h10M4 17h7" stroke="currentColor" stroke-width="1.7"/>
+                        </svg>
+                        Budget (KSh)
+                    </label>
+                    <select id="q-budget" name="max">
+                        <option value="">Any budget</option>
+                        <option value="50000">Up to 50,000</option>
+                        <option value="100000">Up to 100,000</option>
+                        <option value="500000">Up to 500,000</option>
+                        <option value="2000000">Up to 2M</option>
+                        <option value="10000000">Up to 10M</option>
+                        <option value="50000000">Up to 50M</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary search-submit">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 20l-4-4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Search
+                </button>
+            </form>
+
+        </div>
+
+        <p class="hero-credit">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+            A little inspiration from Diani, Kenya
+        </p>
+    </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust-strip">
+    <div class="container trust-grid">
+
+        <div class="trust-item">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <div>
+                <p class="trust-title">Verified Kenyan listings</p>
+                <p class="trust-sub">Title-deed checked properties</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <div>
+                <p class="trust-title">Rooted in Kenya</p>
+                <p class="trust-sub">From the city to the coast</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="17" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 20c.4-1.6 1.9-2.8 3.6-2.8 1 0 1.9.4 2.6 1" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <div>
+                <p class="trust-title">Direct contact</p>
+                <p class="trust-sub">No hidden middleman fees</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20s-7-4.6-7-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7 3.2C19 15.4 12 20 12 20z"
+                      stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <div>
+                <p class="trust-title">Made for your next move</p>
+                <p class="trust-sub">A place for every chapter</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============ CATEGORY STRIP ============ -->
+<section class="category-strip">
+    <div class="container">
+        <h2 class="section-title">What are you looking for?</h2>
+        <p class="section-sub">Big plans or a short stay. Start right here.</p>
+
+        <div class="category-grid">
+            {% for cat in categories %}
+                {% if cat.slug == "airbnb" %}
+                    <a href="{% url 'properties:airbnbs' %}" class="category-card">
+                {% elif cat.slug == "rental" %}
+                    <a href="{% url 'properties:rentals' %}" class="category-card">
+                {% elif cat.slug == "land" %}
+                    <a href="{% url 'properties:land' %}" class="category-card">
+                {% else %}
+                    <a href="{% url 'properties:for_sale' %}" class="category-card">
+                {% endif %}
+
+                    <div class="category-icon category-icon--{{ cat.slug }}">
+                        {% if cat.slug == "airbnb" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% elif cat.slug == "rental" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="15" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M11 12l9-9 2 2-2 2 2 2-2 2-2-2-2 2" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% elif cat.slug == "land" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20h18M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% else %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9H4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% endif %}
+                    </div>
+                    <div class="category-body">
+                        <p class="category-name">{{ cat.name }}</p>
+                        <p class="category-tag">{{ cat.tagline }}</p>
+                    </div>
+                    <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                    </svg>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ LISTINGS ============ -->
+<section class="listings-section" id="listings">
+    <div class="container">
+
+        <div class="listings-header">
+            <div>
+                <h2 class="section-title">Places worth a look</h2>
+                <p class="section-sub">A few favourites to inspire your next move. Sample listings.</p>
+            </div>
+            <a href="{% url 'core:search' %}" class="link-arrow">
+                View all properties
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="filter-pills" data-filter-pills>
+            <button type="button" class="pill is-active" data-filter="all">All properties</button>
+            <button type="button" class="pill" data-filter="airbnb">Airbnbs</button>
+            <button type="button" class="pill" data-filter="rental">Rentals</button>
+            <button type="button" class="pill" data-filter="land">Land</button>
+            <button type="button" class="pill" data-filter="sale">For sale</button>
+            <button type="button" class="pill pill-saved" data-filter="saved">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 20s-7-4.6-7-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7 3.2C19 15.4 12 20 12 20z"
+                          stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                Saved only
+            </button>
+        </div>
+
+        <div data-listings-results>
+            {% include "partials/_listings_results.html" with properties=properties_list categories=categories %}
+        </div>
+
+    </div>
+</section>
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    // Hero tab switcher
+    document.querySelectorAll(".search-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+            document.querySelectorAll(".search-tab").forEach(function (t) {
+                t.classList.remove("is-active");
+                t.setAttribute("aria-selected", "false");
+            });
+            tab.classList.add("is-active");
+            tab.setAttribute("aria-selected", "true");
+            document.getElementById("hero-search-category").value = tab.dataset.cat;
+        });
+    });
+</script>
+<script src="{% static 'js/listings.js' %}" defer></script>
+{% endblock %}

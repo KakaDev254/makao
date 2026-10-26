@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}List a property | Makao{% endblock %}
+{% block meta_description %}Submit your property, land, or Airbnb to Makao. Free for hosts and sellers across Kenya.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/list_property.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="submit-hero">
+    <div class="container">
+        <p class="submit-eyebrow">Free to list</p>
+        <h1 class="submit-title">List your property on Makao</h1>
+        <p class="submit-sub">
+            Reach thousands of Kenyans and visitors looking for stays, homes, land, and investments.
+            Submit your details and we'll review your listing within 24 hours.
+        </p>
+    </div>
+</section>
+
+<section class="submit-body">
+    <div class="container submit-layout">
+
+        <form class="submit-form"
+              method="post"
+              action="{% url 'properties:submit' %}"
+              enctype="multipart/form-data"
+              novalidate>
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for err in form.non_field_errors %}<p>{{ err }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- ============ Section: Listing ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Listing</legend>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="{{ form.category.id_for_label }}">Category *</label>
+                        {{ form.category }}
+                        {% if form.category.errors %}<p class="field-error">{{ form.category.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.property_type.id_for_label }}">Property type *</label>
+                        {{ form.property_type }}
+                        {% if form.property_type.errors %}<p class="field-error">{{ form.property_type.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.title.id_for_label }}">Title *</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}<p class="field-error">{{ form.title.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.description.id_for_label }}">Description *</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}<p class="field-error">{{ form.description.errors.0 }}</p>{% endif %}
+                </div>
+            </fieldset>
+
+            <!-- ============ Section: Location ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Location</legend>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="{{ form.county.id_for_label }}">County *</label>
+                        {{ form.county }}
+                        {% if form.county.errors %}<p class="field-error">{{ form.county.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.neighborhood.id_for_label }}">Neighborhood *</label>
+                        {{ form.neighborhood }}
+                        {% if form.neighborhood.errors %}<p class="field-error">{{ form.neighborhood.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- ============ Section: Pricing ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Pricing</legend>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="{{ form.price.id_for_label }}">Price (KES) *</label>
+                        {{ form.price }}
+                        {% if form.price.help_text %}<p class="field-help">{{ form.price.help_text }}</p>{% endif %}
+                        {% if form.price.errors %}<p class="field-error">{{ form.price.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.price_period.id_for_label }}">Price period *</label>
+                        {{ form.price_period }}
+                        {% if form.price_period.errors %}<p class="field-error">{{ form.price_period.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- ============ Section: Specs ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Property specs (optional)</legend>
+
+                <div class="form-row form-row--3">
+                    <div class="form-field">
+                        <label for="{{ form.bedrooms.id_for_label }}">Bedrooms</label>
+                        {{ form.bedrooms }}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.bathrooms.id_for_label }}">Bathrooms</label>
+                        {{ form.bathrooms }}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.guests.id_for_label }}">Guests</label>
+                        {{ form.guests }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="{{ form.area_sqft.id_for_label }}">Area (sqft)</label>
+                        {{ form.area_sqft }}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.plot_size.id_for_label }}">Plot size</label>
+                        {{ form.plot_size }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- ============ Section: Media ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Cover image</legend>
+
+                <div class="form-field">
+                    <label for="{{ form.cover_image.id_for_label }}">Upload a cover image</label>
+                    {{ form.cover_image }}
+                    <p class="field-help">JPG or PNG. Landscape works best. Skip if you don't have one yet.</p>
+                    {% if form.cover_image.errors %}<p class="field-error">{{ form.cover_image.errors.0 }}</p>{% endif %}
+                </div>
+            </fieldset>
+
+            <!-- ============ Section: Contact ============ -->
+            <fieldset class="form-section">
+                <legend class="form-legend">Your contact details</legend>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="{{ form.agent_name.id_for_label }}">Your name or agency *</label>
+                        {{ form.agent_name }}
+                        {% if form.agent_name.errors %}<p class="field-error">{{ form.agent_name.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.agent_phone.id_for_label }}">Contact phone *</label>
+                        {{ form.agent_phone }}
+                        {% if form.agent_phone.help_text %}<p class="field-help">{{ form.agent_phone.help_text }}</p>{% endif %}
+                        {% if form.agent_phone.errors %}<p class="field-error">{{ form.agent_phone.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="submit-actions">
+                <p class="submit-disclaimer">
+                    By submitting, you agree to be contacted by interested renters, buyers, or guests.
+                    Listings are reviewed before going live.
+                </p>
+                <button type="submit" class="btn btn-primary submit-btn">Submit listing</button>
+            </div>
+
+        </form>
+
+        <!-- Sidebar -->
+        <aside class="submit-sidebar">
+            <div class="submit-info">
+                <h3 class="submit-info-heading">Why list on Makao?</h3>
+                <ul class="submit-info-list">
+                    <li>Free to list, no monthly fees</li>
+                    <li>Direct contact with buyers and guests</li>
+                    <li>Verified badge for title-checked properties</li>
+                    <li>Featured placement available</li>
+                </ul>
+            </div>
+            <div class="submit-info">
+                <h3 class="submit-info-heading">Review process</h3>
+                <p class="submit-info-text">
+                    Every submission is reviewed within 24 hours. We verify details and check for duplicates.
+                    You'll be contacted via the phone number you provide if we need clarification.
+                </p>
+            </div>
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}

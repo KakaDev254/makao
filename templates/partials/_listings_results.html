@@ -1,0 +1,19 @@
+{% if properties %}
+    <div class="listings-grid">
+        {% for property in properties %}
+            {% include "partials/_property_card.html" with property=property %}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <p class="empty-title">No properties match your filters.</p>
+        <p class="empty-sub">Try widening your budget, clearing the category, or searching a different area.</p>
+        <button type="button" class="btn btn-primary" data-reset-filters>Reset filters</button>
+    </div>
+{% endif %}

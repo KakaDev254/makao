@@ -1,0 +1,107 @@
+/* =========================================================
+   Makao — Category landing pages
+   ========================================================= */
+
+.cat-hero {
+    background: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-8) 0 var(--space-7);
+    border-bottom: 4px solid var(--color-slate);
+}
+
+.cat-hero--airbnb { border-bottom-color: var(--color-slate); }
+.cat-hero--rental { border-bottom-color: var(--color-aqua); }
+.cat-hero--land   { border-bottom-color: var(--color-orange); }
+.cat-hero--sale   { border-bottom-color: var(--color-taupe); }
+
+.cat-eyebrow {
+    color: var(--color-aqua);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 var(--space-3);
+}
+
+.cat-title {
+    color: var(--color-white);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 var(--space-3);
+    line-height: 1.1;
+}
+
+.cat-sub {
+    color: rgba(255,255,255,0.82);
+    max-width: 620px;
+    font-size: var(--fs-base);
+    margin: 0 0 var(--space-6);
+    line-height: 1.6;
+}
+
+/* ---------- Compact search on category hero ---------- */
+.cat-search {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr 0.9fr;
+    background: var(--color-white);
+    max-width: 1040px;
+    box-shadow: var(--shadow-md);
+}
+
+.cat-search .search-field {
+    padding: var(--space-4) var(--space-5);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.cat-search .search-field:last-of-type { border-right: none; }
+
+.cat-search label {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    color: var(--color-slate);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.cat-search input,
+.cat-search select {
+    border: none;
+    padding: 0;
+    font-size: var(--fs-base);
+    color: var(--color-navy);
+    background: transparent;
+    font-weight: var(--fw-medium);
+}
+
+.cat-search .search-submit {
+    background: var(--color-slate);
+    color: var(--color-white);
+    border: none;
+    padding: 0 var(--space-6);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.cat-search .search-submit:hover { background: var(--color-slate-hover); }
+
+/* ---------- Cross-links ---------- */
+.cat-cross {
+    padding: var(--space-8) 0 var(--space-9);
+    background: var(--color-offwhite);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .cat-search { grid-template-columns: 1fr 1fr; }
+    .cat-search .search-field:nth-child(2),
+    .cat-search .search-field:nth-child(4) { border-right: none; }
+    .cat-search .search-submit { grid-column: 1 / -1; padding: var(--space-4) 0; }
+}
+@media (max-width: 560px) {
+    .cat-search { grid-template-columns: 1fr; }
+    .cat-search .search-field { border-right: none; border-bottom: 1px solid var(--color-border); }
+    .cat-search .search-field:last-of-type { border-bottom: none; }
+}

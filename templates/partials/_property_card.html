@@ -1,0 +1,72 @@
+<article class="pcard" data-slug="{{ property.slug }}">
+
+    <div class="pcard-media">
+        {% if property.cover_url %}
+            <img src="{{ property.cover_url }}" alt="{{ property.title }}" loading="lazy">
+        {% else %}
+            <div class="pcard-media-fallback">
+                <span>{{ property.category.name }}</span>
+            </div>
+        {% endif %}
+
+        <span class="pcard-badge badge badge-{{ property.category.slug }}">
+            {{ property.category.name }}
+        </span>
+
+        <button type="button"
+                class="pcard-save"
+                aria-label="Save property"
+                data-save-toggle
+                data-slug="{{ property.slug }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20s-7-4.6-7-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7 3.2C19 15.4 12 20 12 20z"
+                      stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="pcard-body">
+
+        <h3 class="pcard-title">{{ property.title }}</h3>
+
+        <p class="pcard-location">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+            {{ property.neighborhood }}, {{ property.county }}
+        </p>
+
+        <div class="pcard-specs">
+            {% if property.bedrooms %}
+                <span class="pspec">{{ property.bedrooms }} bd</span>
+            {% endif %}
+            {% if property.bathrooms %}
+                <span class="pspec">{{ property.bathrooms }} ba</span>
+            {% endif %}
+            {% if property.guests %}
+                <span class="pspec">{{ property.guests }} guests</span>
+            {% endif %}
+            {% if property.plot_size %}
+                <span class="pspec">{{ property.plot_size }}</span>
+            {% endif %}
+            {% if property.area_sqft %}
+                <span class="pspec">{{ property.area_sqft }} sqft</span>
+            {% endif %}
+        </div>
+
+        <div class="pcard-footer">
+            <span class="pcard-price">{{ property.price_display }}</span>
+            {% if property.is_verified %}
+                <span class="pcard-verified" title="Verified listing">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7"/>
+                    </svg>
+                    Verified
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</article>

@@ -1,0 +1,82 @@
+/* =========================================================
+   Makao Design Tokens
+   Change colors here once, and the whole site updates.
+   ========================================================= */
+
+:root {
+    /* ---- Core palette (strictly enforced) ---- */
+    --color-navy:        #17214c;   /* primary dark bg, headings, footer */
+    --color-slate:       #447ac3;   /* primary buttons, active states */
+    --color-orange:      #fb8e4b;   /* accent badges, key CTAs */
+    --color-aqua:        #54dfd9;   /* status indicators, subtle accents */
+    --color-taupe:       #a18f83;   /* subtle borders, muted labels */
+
+    /* ---- Surfaces ---- */
+    --color-white:       #ffffff;
+    --color-offwhite:    #f8fafc;
+    --color-surface:     #ffffff;
+    --color-surface-alt: #f1f4f9;
+
+    /* ---- Text ---- */
+    --color-text:        #17214c;
+    --color-text-muted:  #6b7280;
+    --color-text-invert: #ffffff;
+
+    /* ---- Borders (sharp, flat) ---- */
+    --color-border:      #e2e6ee;
+    --color-border-strong: #17214c;
+
+    /* ---- Derived states (flat, no gradients) ---- */
+    --color-slate-hover: #3567a8;
+    --color-navy-hover:  #101736;
+    --color-orange-hover:#e97a37;
+
+    /* ---- Typography ---- */
+    --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+
+    --fs-xs:   0.75rem;
+    --fs-sm:   0.875rem;
+    --fs-base: 1rem;
+    --fs-lg:   1.125rem;
+    --fs-xl:   1.375rem;
+    --fs-2xl:  1.75rem;
+    --fs-3xl:  2.25rem;
+    --fs-4xl:  3rem;
+    --fs-5xl:  3.75rem;
+
+    --fw-regular: 400;
+    --fw-medium:  500;
+    --fw-semibold:600;
+    --fw-bold:    700;
+
+    /* ---- Spacing scale ---- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+
+    /* ---- Layout ---- */
+    --container-max: 1240px;
+    --header-height: 72px;
+
+    /* ---- Border radius: STRICTLY ZERO ---- */
+    --radius: 0;
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-pill: 0;
+
+    /* ---- Shadows: keep them subtle and flat ---- */
+    --shadow-sm: 0 1px 2px rgba(23, 33, 76, 0.06);
+    --shadow-md: 0 4px 12px rgba(23, 33, 76, 0.08);
+    --shadow-lg: 0 10px 30px rgba(23, 33, 76, 0.10);
+
+    /* ---- Transitions ---- */
+    --t-fast: 120ms ease;
+    --t-base: 200ms ease;
+}

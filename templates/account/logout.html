@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log out | Makao{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+    <div class="container auth-container auth-container--narrow">
+
+        <div class="auth-panel auth-panel--center">
+            <p class="auth-eyebrow">See you soon</p>
+            <h1 class="auth-title">Log out of Makao?</h1>
+            <p class="auth-sub">You can log back in anytime — your saved properties will be waiting.</p>
+
+            <form method="post" action="{% url 'account_logout' %}" class="auth-form">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                {% endif %}
+                <div class="auth-actions">
+                    <button type="submit" class="btn btn-primary">Yes, log out</button>
+                    <a href="{% url 'core:home' %}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

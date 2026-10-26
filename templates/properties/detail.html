@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ property.title }} — {{ property.neighborhood }}, {{ property.county }} | Makao{% endblock %}
+
+{% block meta_description %}{{ property.description|truncatewords:25 }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="detail-breadcrumb">
+    <div class="container">
+        <a href="{% url 'core:home' %}">Home</a>
+        <span>/</span>
+        <a href="{% url 'core:search' %}?category={{ property.category.slug }}">{{ property.category.name }}</a>
+        <span>/</span>
+        <span>{{ property.title }}</span>
+    </div>
+</div>
+
+<!-- Hero gallery -->
+<section class="detail-gallery">
+    <div class="container">
+        <div class="detail-gallery-grid">
+            <div class="detail-gallery-main">
+                {% if property.cover_url %}
+                    <img src="{{ property.cover_url }}" alt="{{ property.title }}">
+                {% else %}
+                    <div class="pcard-media-fallback">
+                        <span>{{ property.category.name }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content -->
+<section class="detail-body">
+    <div class="container detail-layout">
+
+        <!-- Main column -->
+        <div class="detail-main">
+
+            <div class="detail-head">
+                <span class="badge badge-{{ property.category.slug }}">{{ property.category.name }}</span>
+                {% if property.is_verified %}
+                    <span class="detail-verified">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7"/>
+                        </svg>
+                        Verified listing
+                    </span>
+                {% endif %}
+            </div>
+
+            <h1 class="detail-title">{{ property.title }}</h1>
+
+            <p class="detail-location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z" stroke="currentColor" stroke-width="1.7"/>
+                    <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                {{ property.neighborhood }}, {{ property.county }}
+            </p>
+
+            <div class="detail-price">{{ property.price_display }}</div>
+
+            <div class="detail-section">
+                <h2 class="detail-heading">Overview</h2>
+                <p class="detail-desc">{{ property.description|default:"No description provided."|linebreaksbr }}</p>
+            </div>
+
+            <div class="detail-section">
+                <h2 class="detail-heading">Property details</h2>
+                <ul class="detail-specs">
+                    <li>
+                        <span class="spec-label">Type</span>
+                        <span class="spec-value">{{ property.get_property_type_display }}</span>
+                    </li>
+                    {% if property.bedrooms %}
+                    <li>
+                        <span class="spec-label">Bedrooms</span>
+                        <span class="spec-value">{{ property.bedrooms }}</span>
+                    </li>
+                    {% endif %}
+                    {% if property.bathrooms %}
+                    <li>
+                        <span class="spec-label">Bathrooms</span>
+                        <span class="spec-value">{{ property.bathrooms }}</span>
+                    </li>
+                    {% endif %}
+                    {% if property.guests %}
+                    <li>
+                        <span class="spec-label">Guests</span>
+                        <span class="spec-value">{{ property.guests }}</span>
+                    </li>
+                    {% endif %}
+                    {% if property.plot_size %}
+                    <li>
+                        <span class="spec-label">Plot size</span>
+                        <span class="spec-value">{{ property.plot_size }}</span>
+                    </li>
+                    {% endif %}
+                    {% if property.area_sqft %}
+                    <li>
+                        <span class="spec-label">Area</span>
+                        <span class="spec-value">{{ property.area_sqft }} sqft</span>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <span class="spec-label">Listed</span>
+                        <span class="spec-value">{{ property.created_at|date:"M j, Y" }}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="detail-sidebar">
+
+            <div class="agent-card">
+                <p class="agent-label">Host / Agent</p>
+                {% if property.agent %}
+                    <a href="{% url 'properties:agent_detail' slug=property.agent.slug %}" class="agent-name-link">
+                        {{ property.agent.name }}
+                    </a>
+                    <p class="agent-phone text-taupe">+{{ property.agent.phone }}</p>
+                {% else %}
+                    <p class="agent-name">{{ property.agent_name }}</p>
+                    <p class="agent-phone text-taupe">+{{ property.agent_phone }}</p>
+                {% endif %}
+
+                <div class="agent-actions">
+                    {% if property.agent %}
+                        <a href="https://wa.me/{{ property.agent.phone }}?text=Hi%20{{ property.agent.name|urlencode }},%20I'm%20interested%20in%20{{ property.title|urlencode }}%20on%20Makao."
+                           target="_blank"
+                           rel="noopener"
+                           class="btn btn-primary btn-block">
+                            Inquire via WhatsApp
+                        </a>
+                        <a href="tel:+{{ property.agent.phone }}" class="btn btn-outline btn-block">
+                            Call {{ property.agent.name }}
+                        </a>
+                        <a href="{% url 'properties:agent_detail' slug=property.agent.slug %}" class="btn btn-outline btn-block">
+                            View full profile
+                        </a>
+                    {% else %}
+                        <a href="https://wa.me/{{ property.agent_phone }}?text=Hi%20{{ property.agent_name|urlencode }},%20I'm%20interested%20in%20{{ property.title|urlencode }}%20on%20Makao."
+                           target="_blank"
+                           rel="noopener"
+                           class="btn btn-primary btn-block">
+                            Inquire via WhatsApp
+                        </a>
+                        <a href="tel:+{{ property.agent_phone }}" class="btn btn-outline btn-block">
+                            Call {{ property.agent_name }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="detail-meta-card">
+                <p class="detail-meta-heading">Listing reference</p>
+                <p class="detail-meta-value">{{ property.slug }}</p>
+                <p class="detail-meta-note">Quote this when you contact the agent.</p>
+            </div>
+
+        </aside>
+
+    </div>
+</section>
+
+<!-- Related listings -->
+{% if related %}
+<section class="listings-section">
+    <div class="container">
+        <h2 class="section-title">More in {{ property.category.name }}</h2>
+        <p class="section-sub">Similar listings you might like.</p>
+        <div class="listings-grid">
+            {% for p in related %}
+                {% include "partials/_property_card.html" with property=p %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/listings.js' %}" defer></script>
+{% endblock %}

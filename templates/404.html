@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page not found — Makao{% endblock %}
+
+{% block content %}
+<section class="error-page">
+    <div class="container">
+        <p class="error-code">404</p>
+        <h1 class="error-title">That page took a different turn.</h1>
+        <p class="error-sub">
+            The page you're looking for doesn't exist, or it may have moved.
+            Let's get you back to browsing.
+        </p>
+        <div class="error-actions">
+            <a href="{% url 'core:home' %}" class="btn btn-primary">Back to home</a>
+            <a href="{% url 'core:home' %}#listings" class="btn btn-outline">Browse listings</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

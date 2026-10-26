@@ -1,0 +1,289 @@
+/* =========================================================
+   Makao — Account Center
+   ========================================================= */
+
+.center-page {
+    padding: var(--space-7) 0 var(--space-9);
+    background: var(--color-offwhite);
+}
+
+.center-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: var(--space-6);
+    align-items: start;
+    max-width: 1080px;
+}
+
+/* ---------- Sidebar ---------- */
+.center-sidebar {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-4));
+}
+.center-sidebar-eyebrow {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    color: var(--color-taupe);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 var(--space-4);
+}
+.center-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.center-nav-link {
+    display: block;
+    padding: var(--space-3) var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--color-navy);
+    font-weight: var(--fw-medium);
+    border-left: 3px solid transparent;
+    transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+}
+.center-nav-link:hover {
+    background: var(--color-offwhite);
+    color: var(--color-slate);
+}
+.center-nav-link.is-active {
+    background: #f3f7fd;
+    color: var(--color-slate);
+    border-left-color: var(--color-slate);
+    font-weight: var(--fw-semibold);
+}
+.center-nav-link--danger {
+    color: #991b1b;
+}
+.center-nav-link--danger:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+.center-nav-link--danger.is-active {
+    background: #fef2f2;
+    color: #dc2626;
+    border-left-color: #dc2626;
+}
+.center-sidebar-foot {
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Content ---------- */
+.center-content {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: var(--space-7) var(--space-6);
+    min-height: 400px;
+}
+
+.center-head {
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+}
+.center-head--danger {
+    border-bottom-color: #fecaca;
+}
+.center-eyebrow {
+    color: var(--color-slate);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 var(--space-2);
+}
+.center-eyebrow--danger {
+    color: #dc2626;
+}
+.center-title {
+    font-size: var(--fs-2xl);
+    color: var(--color-navy);
+    margin: 0 0 var(--space-2);
+    line-height: 1.2;
+}
+.center-sub {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* ---------- Messages ---------- */
+.center-messages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+}
+.center-message {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--fs-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-offwhite);
+    color: var(--color-navy);
+}
+.center-message--success {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+.center-message--error {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+/* ---------- Tiles grid ---------- */
+.center-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+}
+.center-tile {
+    display: block;
+    padding: var(--space-5);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.center-tile:hover {
+    border-color: var(--color-slate);
+    box-shadow: var(--shadow-sm);
+}
+.center-tile-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+.center-tile-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #e6eef9;
+    color: var(--color-slate);
+    flex-shrink: 0;
+}
+.center-tile-title {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-semibold);
+    color: var(--color-navy);
+    margin: 0;
+}
+.center-tile-text {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+.center-tile--danger {
+    border-color: #fecaca;
+}
+.center-tile--danger .center-tile-icon {
+    background: #fef2f2;
+    color: #dc2626;
+}
+.center-tile--danger .center-tile-title {
+    color: #991b1b;
+}
+.center-tile--danger:hover {
+    border-color: #dc2626;
+}
+
+/* ---------- Forms ---------- */
+.center-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 560px;
+}
+.center-form-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
+.center-form--danger .center-form-actions {
+    border-top-color: #fecaca;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: var(--color-white);
+    border: none;
+    padding: var(--space-3) var(--space-5);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+}
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+.center-foot-note {
+    margin-top: var(--space-5);
+    font-size: var(--fs-sm);
+    color: var(--color-taupe);
+}
+.center-foot-note a {
+    color: var(--color-slate);
+    font-weight: var(--fw-medium);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .center-layout {
+        grid-template-columns: 1fr;
+    }
+    .center-sidebar {
+        position: static;
+        padding: var(--space-4);
+    }
+    .center-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding-bottom: var(--space-2);
+        scrollbar-width: none;
+    }
+    .center-nav::-webkit-scrollbar { display: none; }
+    .center-nav-link {
+        flex-shrink: 0;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--fs-xs);
+        white-space: nowrap;
+    }
+    .center-nav-link.is-active {
+        border-left: none;
+        border-bottom-color: var(--color-slate);
+        background: transparent;
+    }
+    .center-sidebar-foot {
+        margin-top: var(--space-3);
+        padding-top: var(--space-3);
+    }
+    .center-sidebar-foot .btn { width: 100%; }
+
+    .center-content {
+        padding: var(--space-5) var(--space-4);
+    }
+    .center-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Utility: reuse base.css form primitives ---------- */
+/* .form-row, .form-field, .form-input, .field-error, .field-help, .form-errors
+   are already defined in base.css — no duplication needed. */

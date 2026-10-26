@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_attrs %}data-page="saved"{% endblock %}
+
+{% block title %}Saved properties | Makao{% endblock %}
+{% block meta_description %}Your saved Airbnbs, rentals, land, and properties for sale on Makao.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+<link rel="stylesheet" href="{% static 'css/saved.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="saved-hero">
+    <div class="container">
+        <p class="saved-eyebrow">Your shortlist</p>
+        <h1 class="saved-title">Saved properties</h1>
+        <p class="saved-meta">
+            <span data-saved-count-text>0</span> propert<span data-saved-count-plural>ies</span> in your list.
+        </p>
+    </div>
+</section>
+
+<section class="listings-section">
+    <div class="container">
+        <div data-saved-results>
+            <!-- Skeleton placeholder while JS fetches -->
+            <div class="listings-grid" aria-busy="true">
+                <article class="pcard pcard--skeleton" aria-hidden="true">
+                    <div class="pcard-media skeleton-block"></div>
+                    <div class="pcard-body">
+                        <div class="skeleton-line skeleton-line--title"></div>
+                        <div class="skeleton-line skeleton-line--short"></div>
+                        <div class="pcard-specs">
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                        </div>
+                        <div class="pcard-footer">
+                            <div class="skeleton-line skeleton-line--price"></div>
+                        </div>
+                    </div>
+                </article>
+                <article class="pcard pcard--skeleton" aria-hidden="true">
+                    <div class="pcard-media skeleton-block"></div>
+                    <div class="pcard-body">
+                        <div class="skeleton-line skeleton-line--title"></div>
+                        <div class="skeleton-line skeleton-line--short"></div>
+                        <div class="pcard-specs">
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                        </div>
+                        <div class="pcard-footer">
+                            <div class="skeleton-line skeleton-line--price"></div>
+                        </div>
+                    </div>
+                </article>
+                <article class="pcard pcard--skeleton" aria-hidden="true">
+                    <div class="pcard-media skeleton-block"></div>
+                    <div class="pcard-body">
+                        <div class="skeleton-line skeleton-line--title"></div>
+                        <div class="skeleton-line skeleton-line--short"></div>
+                        <div class="pcard-specs">
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                        </div>
+                        <div class="pcard-footer">
+                            <div class="skeleton-line skeleton-line--price"></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "partials/_property_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/listings.js' %}" defer></script>
+<script src="{% static 'js/saved.js' %}" defer></script>
+{% endblock %}

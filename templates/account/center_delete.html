@@ -1,0 +1,38 @@
+{% extends "account/center_base.html" %}
+{% load static %}
+
+{% block title %}Delete account | Account Center | Makao{% endblock %}
+
+{% block center_content %}
+
+<header class="center-head center-head--danger">
+    <p class="center-eyebrow center-eyebrow--danger">Danger zone</p>
+    <h1 class="center-title">Delete account</h1>
+    <p class="center-sub">
+        Deleting your account is permanent. Your saved properties, submissions, and
+        personal data will be removed. This cannot be undone.
+    </p>
+</header>
+
+<form method="post" class="center-form center-form--danger" novalidate>
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <div class="form-errors">
+            {% for err in form.non_field_errors %}<p>{{ err }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-field">
+        <label for="{{ form.confirm.id_for_label }}">{{ form.confirm.label }}</label>
+        {{ form.confirm }}
+        {% if form.confirm.errors %}<p class="field-error">{{ form.confirm.errors.0 }}</p>{% endif %}
+    </div>
+
+    <div class="center-form-actions">
+        <button type="submit" class="btn btn-danger">Delete my account</button>
+        <a href="{% url 'account_center_home' %}" class="btn btn-outline">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% load static %}
+<header class="site-header">
+    <div class="container header-inner">
+
+        <a href="{% url 'core:home' %}" class="logo" aria-label="Makao home">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 11.5 12 4l9 7.5" stroke="#17214c" stroke-width="2" stroke-linecap="square"/>
+                <path d="M5.5 10.5V20h13v-9.5" stroke="#17214c" stroke-width="2" stroke-linecap="square"/>
+                <path d="M10 20v-5h4v5" stroke="#447ac3" stroke-width="2" stroke-linecap="square"/>
+            </svg>
+            <span class="logo-text">makao<span class="logo-dot">.</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary">
+            <a href="{% url 'properties:airbnbs' %}"
+               class="nav-link {% if request.resolver_match.url_name == 'airbnbs' %}is-active{% endif %}">Airbnbs</a>
+            <a href="{% url 'properties:rentals' %}"
+               class="nav-link {% if request.resolver_match.url_name == 'rentals' %}is-active{% endif %}">Rentals</a>
+            <a href="{% url 'properties:land' %}"
+               class="nav-link {% if request.resolver_match.url_name == 'land' %}is-active{% endif %}">Land</a>
+            <a href="{% url 'properties:for_sale' %}"
+               class="nav-link {% if request.resolver_match.url_name == 'for_sale' %}is-active{% endif %}">Buy property</a>
+        </nav>
+
+        <div class="header-actions">
+            <a href="{% url 'core:saved' %}" class="icon-btn" aria-label="Saved properties">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 20s-7-4.6-7-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7 3.2C19 15.4 12 20 12 20z"
+                          stroke="#17214c" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+                <span class="icon-badge" data-saved-count>0</span>
+            </a>
+
+            <a href="{% url 'properties:submit' %}" class="btn btn-primary list-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="square"/>
+                </svg>
+                List a property
+            </a>
+
+            {% if user.is_authenticated %}
+                <div class="user-menu" data-user-menu>
+                    <button type="button"
+                            class="user-avatar {% if user.profile.avatar_url %}has-photo{% endif %}"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            data-user-menu-toggle
+                            title="{{ user.profile.name|default:user.email }}">
+                        {% if user.profile.avatar_url %}
+                            <img src="{{ user.profile.avatar_url }}" alt="{{ user.profile.name }}">
+                        {% else %}
+                            {{ user.profile.initial|default:user.email|slice:":1"|upper }}
+                        {% endif %}
+                    </button>
+                    <div class="user-dropdown" hidden data-user-dropdown>
+                        <div class="user-dropdown-head">
+                            <p class="user-name">{{ user.profile.name|default:user.email }}</p>
+                            <p class="user-email">{{ user.email }}</p>
+                        </div>
+                        <a href="{% url 'account_center_home' %}" class="user-dropdown-link">Account settings</a>
+                        <a href="{% url 'core:saved' %}" class="user-dropdown-link">Saved properties</a>
+                        <a href="{% url 'properties:submit' %}" class="user-dropdown-link">List a property</a>
+                        <form method="post" action="{% url 'account_logout' %}" class="user-dropdown-form">
+                            {% csrf_token %}
+                            <button type="submit" class="user-dropdown-link user-dropdown-logout">Log out</button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="auth-links">
+                    <a href="{% url 'account_login' %}" class="btn btn-ghost auth-link">Log in</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-outline auth-link">Sign up</a>
+                </div>
+            {% endif %}
+
+            <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-drawer" data-mobile-drawer hidden>
+        <nav class="mobile-nav">
+            <a href="{% url 'properties:airbnbs' %}" class="mobile-link">Airbnbs</a>
+            <a href="{% url 'properties:rentals' %}" class="mobile-link">Rentals</a>
+            <a href="{% url 'properties:land' %}"    class="mobile-link">Land</a>
+            <a href="{% url 'properties:for_sale' %}" class="mobile-link">Buy property</a>
+            <a href="{% url 'core:saved' %}" class="mobile-link">Saved properties</a>
+            <a href="{% url 'properties:submit' %}" class="btn btn-primary btn-block">+ List a property</a>
+
+            {% if user.is_authenticated %}
+                <div class="mobile-user">
+                    <p class="mobile-user-name">{{ user.profile.name|default:user.email }}</p>
+                    <p class="mobile-user-email">{{ user.email }}</p>
+                    <a href="{% url 'account_center_home' %}" class="btn btn-outline btn-block">Account settings</a>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline btn-block">Log out</button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="mobile-auth">
+                    <a href="{% url 'account_login' %}" class="btn btn-outline btn-block">Log in</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary btn-block">Sign up</a>
+                </div>
+            {% endif %}
+        </nav>
+    </div>
+</header>
