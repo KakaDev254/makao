@@ -173,8 +173,10 @@ STORAGES = {
 
 # Production static files (Whitenoise)
 if not DEBUG:
+    # Changed from CompressedManifestStaticFilesStorage to CompressedStaticFilesStorage
+    # This prevents crashes if a file is missing from the manifest cache
     STORAGES["staticfiles"]["BACKEND"] = (
-        "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        "whitenoise.storage.CompressedStaticFilesStorage"
     )
 
 
