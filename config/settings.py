@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+import dj_database_url
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,6 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-insecure-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+
+# Allow Railway's auto-generated domains in production
+if not DEBUG:
+    ALLOWED_HOSTS += [".railway.app", ".up.railway.app"]
 
 
 # ------------------------------------------------------------------
@@ -78,12 +84,15 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # ------------------------------------------------------------------
 # Database
+# In dev (no DATABASE_URL) this falls back to SQLite.
+# On Railway, DATABASE_URL is injected automatically by the Postgres addon.
 # ------------------------------------------------------------------
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
@@ -130,7 +139,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ------------------------------------------------------------------
 # Email
-# Django expects EMAIL_BACKEND (singular). In dev we print to console.
 # ------------------------------------------------------------------
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "Makao <noreply@makao.local>"
@@ -154,7 +162,6 @@ CLOUDINARY_STORAGE = {
     "SECURE": True,
 }
 
-# Media (uploads) → Cloudinary. Static (CSS/JS) → local staticfiles dir.
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -188,7 +195,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_LOGOUT_ON_GET = False                    # require POST to log out
+ACCOUNT_LOGOUT_ON_GET = False
 
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "core:home"
@@ -216,5 +223,4 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# Skip the intermediate "Continue with Google" page
 SOCIALACCOUNT_LOGIN_ON_GET = True
