@@ -198,7 +198,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGOUT_ON_GET = False
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"          # <--- ADD THIS LINE
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"          # Forces allauth to use HTTPS
 
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "core:home"
@@ -227,3 +227,13 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+
+# ------------------------------------------------------------------
+# Production Security (Railway)
+# ------------------------------------------------------------------
+# Tells Django that Railway's proxy is handling HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = ["https://makao-production-9894.up.railway.app"]
