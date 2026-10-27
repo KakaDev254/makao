@@ -141,13 +141,19 @@
 
             <!-- ============ Section: Media ============ -->
             <fieldset class="form-section">
-                <legend class="form-legend">Cover image</legend>
+                <legend class="form-legend">Photos</legend>
 
                 <div class="form-field">
-                    <label for="{{ form.cover_image.id_for_label }}">Upload a cover image</label>
+                    <label for="{{ form.cover_image.id_for_label }}">Main Cover Image</label>
                     {{ form.cover_image }}
-                    <p class="field-help">JPG or PNG. Landscape works best. Skip if you don't have one yet.</p>
+                    <p class="field-help">{{ form.cover_image.help_text }}</p>
                     {% if form.cover_image.errors %}<p class="field-error">{{ form.cover_image.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field" style="margin-top: var(--space-4);">
+                    <label for="id_gallery_images">Extra Images (Up to 3)</label>
+                    <input type="file" name="gallery_images" id="id_gallery_images" class="form-input" multiple accept="image/*">
+                    <p class="field-help">You can select up to 3 extra images (hold Ctrl/Cmd to select multiple).</p>
                 </div>
             </fieldset>
 

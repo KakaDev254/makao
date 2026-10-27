@@ -495,3 +495,34 @@
     margin: 0 0 var(--space-5);
     line-height: 1.6;
 }
+/* Modal thumbnails */
+.modal-media-wrap {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface-alt);
+}
+.modal-thumbnails {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: var(--color-offwhite);
+    overflow-x: auto;
+}
+.modal-thumb {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+}
+.modal-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.modal-thumb.is-active {
+    border-color: var(--color-slate);
+}

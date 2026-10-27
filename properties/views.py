@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_GET, require_POST
 
 from .forms import PropertySubmissionForm
-from .models import Agent, Category, Property, SavedProperty
+from .models import Agent, Category, Property, PropertyImage, SavedProperty
 
 
 # ------------------------------------------------------------------
@@ -97,11 +97,19 @@ def listings(request):
 def property_detail_json(request, slug):
     """Return one property as JSON for the modal."""
     p = get_object_or_404(
-        Property.objects.select_related("category", "agent"),
+        Property.objects.select_related("category", "agent").prefetch_related("images"),
         slug=slug,
         is_active=True,
     )
     name, phone = _agent_name_phone(p)
+
+    # Build the gallery array (Cover image first, then extra images)
+    gallery = []
+    if p.cover_url:
+        gallery.append(p.cover_url)
+    for img in p.images.all():
+        if img.image_url:
+            gallery.append(img.image_url)
 
     return JsonResponse(
         {
@@ -121,6 +129,7 @@ def property_detail_json(request, slug):
             "area_sqft": p.area_sqft,
             "plot_size": p.plot_size,
             "cover_image": p.cover_url,
+            "gallery": gallery,
             "is_verified": p.is_verified,
             "is_featured": p.is_featured,
             "agent_name": name,
@@ -164,7 +173,7 @@ def listings_by_slugs(request):
 def property_detail(request, slug):
     """Full detail page for one property."""
     p = get_object_or_404(
-        Property.objects.select_related("category", "agent"),
+        Property.objects.select_related("category", "agent").prefetch_related("images"),
         slug=slug,
         is_active=True,
     )
@@ -255,6 +264,12 @@ def submit_property(request):
             prop.is_featured = False
             prop.is_verified = False
             prop.save()
+
+            # Handle the extra gallery images uploaded by the user
+            gallery_files = request.FILES.getlist('gallery_images')
+            for f in gallery_files[:3]:  # Enforce max 3 extra images
+                PropertyImage.objects.create(property_ref=prop, image=f)
+
             return redirect("properties:submit_success")
     else:
         form = PropertySubmissionForm()

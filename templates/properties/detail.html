@@ -27,7 +27,9 @@
 <!-- Hero gallery -->
 <section class="detail-gallery">
     <div class="container">
-        <div class="detail-gallery-grid">
+        <div class="detail-gallery-grid {% if property.images.all %}has-thumbs{% endif %}">
+            
+            <!-- Main Image -->
             <div class="detail-gallery-main">
                 {% if property.cover_url %}
                     <img src="{{ property.cover_url }}" alt="{{ property.title }}">
@@ -37,6 +39,20 @@
                     </div>
                 {% endif %}
             </div>
+
+            <!-- Gallery Thumbnails (up to 3 on desktop) -->
+            {% if property.images.all %}
+                <div class="detail-gallery-thumbs">
+                    {% for img in property.images.all|slice:":3" %}
+                        {% if img.image_url %}
+                            <div class="detail-gallery-thumb">
+                                <img src="{{ img.image_url }}" alt="{{ property.title }} gallery image">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
         </div>
     </div>
 </section>

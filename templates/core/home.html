@@ -182,47 +182,7 @@
     </div>
 </section>
 
-<!-- ============ CATEGORY STRIP ============ -->
-<section class="category-strip">
-    <div class="container">
-        <h2 class="section-title">What are you looking for?</h2>
-        <p class="section-sub">Big plans or a short stay. Start right here.</p>
 
-        <div class="category-grid">
-            {% for cat in categories %}
-                {% if cat.slug == "airbnb" %}
-                    <a href="{% url 'properties:airbnbs' %}" class="category-card">
-                {% elif cat.slug == "rental" %}
-                    <a href="{% url 'properties:rentals' %}" class="category-card">
-                {% elif cat.slug == "land" %}
-                    <a href="{% url 'properties:land' %}" class="category-card">
-                {% else %}
-                    <a href="{% url 'properties:for_sale' %}" class="category-card">
-                {% endif %}
-
-                    <div class="category-icon category-icon--{{ cat.slug }}">
-                        {% if cat.slug == "airbnb" %}
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>
-                        {% elif cat.slug == "rental" %}
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="15" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M11 12l9-9 2 2-2 2 2 2-2 2-2-2-2 2" stroke="currentColor" stroke-width="1.6"/></svg>
-                        {% elif cat.slug == "land" %}
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20h18M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
-                        {% else %}
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9H4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg>
-                        {% endif %}
-                    </div>
-                    <div class="category-body">
-                        <p class="category-name">{{ cat.name }}</p>
-                        <p class="category-tag">{{ cat.tagline }}</p>
-                    </div>
-                    <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
-                    </svg>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 <!-- ============ LISTINGS ============ -->
 <section class="listings-section" id="listings">
@@ -264,6 +224,48 @@
 </section>
 
 {% include "partials/_property_modal.html" %}
+
+<!-- ============ CATEGORY STRIP ============ -->
+<section class="category-strip">
+    <div class="container">
+        <h2 class="section-title">What are you looking for?</h2>
+        <p class="section-sub">Big plans or a short stay. Start right here.</p>
+
+        <div class="category-grid">
+            {% for cat in categories %}
+                {% if cat.slug == "airbnb" %}
+                    <a href="{% url 'properties:airbnbs' %}" class="category-card">
+                {% elif cat.slug == "rental" %}
+                    <a href="{% url 'properties:rentals' %}" class="category-card">
+                {% elif cat.slug == "land" %}
+                    <a href="{% url 'properties:land' %}" class="category-card">
+                {% else %}
+                    <a href="{% url 'properties:for_sale' %}" class="category-card">
+                {% endif %}
+
+                    <div class="category-icon category-icon--{{ cat.slug }}">
+                        {% if cat.slug == "airbnb" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% elif cat.slug == "rental" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="15" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M11 12l9-9 2 2-2 2 2 2-2 2-2-2-2 2" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% elif cat.slug == "land" %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20h18M5 20V9l7-5 7 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% else %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9H4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg>
+                        {% endif %}
+                    </div>
+                    <div class="category-body">
+                        <p class="category-name">{{ cat.name }}</p>
+                        <p class="category-tag">{{ cat.tagline }}</p>
+                    </div>
+                    <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/>
+                    </svg>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 

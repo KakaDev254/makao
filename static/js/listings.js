@@ -184,6 +184,9 @@
         modal.querySelector("[data-modal-description]").textContent = "";
         modal.querySelector("[data-modal-specs]").innerHTML = "";
         modal.querySelector("[data-modal-media]").innerHTML = "";
+        
+        const thumbsBox = modal.querySelector("[data-modal-thumbnails]");
+        if (thumbsBox) thumbsBox.innerHTML = "";
 
         // Reset the full-listing link until data arrives
         const fullLink = modal.querySelector("[data-modal-view-full]");
@@ -196,10 +199,33 @@
             .then(r => r.json())
             .then(data => {
                 const mediaBox = modal.querySelector("[data-modal-media]");
-                if (data.cover_image) {
-                    mediaBox.innerHTML = `<img src="${data.cover_image}" alt="">`;
+                
+                // Build the images array (fallback to cover_image if gallery is empty)
+                const images = data.gallery && data.gallery.length ? data.gallery : [data.cover_image];
+                
+                if (images[0]) {
+                    mediaBox.innerHTML = `<img src="${images[0]}" alt="">`;
                 } else {
                     mediaBox.innerHTML = `<div class="pcard-media-fallback"><span>${data.category}</span></div>`;
+                }
+
+                // Render thumbnails if there's more than 1 image
+                if (thumbsBox && images.length > 1) {
+                    thumbsBox.innerHTML = images.map((src, i) => `
+                        <button type="button" class="modal-thumb ${i === 0 ? 'is-active' : ''}" data-src="${src}">
+                            <img src="${src}" alt="">
+                        </button>
+                    `).join("");
+
+                    // Click to swap main image
+                    thumbsBox.querySelectorAll(".modal-thumb").forEach(btn => {
+                        btn.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            mediaBox.innerHTML = `<img src="${btn.dataset.src}" alt="">`;
+                            thumbsBox.querySelectorAll(".modal-thumb").forEach(b => b.classList.remove("is-active"));
+                            btn.classList.add("is-active");
+                        });
+                    });
                 }
 
                 modal.querySelector("[data-modal-category]").textContent = data.category;

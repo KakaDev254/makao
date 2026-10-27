@@ -72,12 +72,13 @@ class PropertySubmissionForm(forms.ModelForm):
             }),
         }
         labels = {
-            "cover_image": "Cover image (optional)",
+            "cover_image": "Main Cover Image",
             "agent_phone": "Contact phone",
         }
         help_texts = {
             "agent_phone": "Include country code, no spaces. E.g. 254712345678",
             "price": "Number only, in Kenyan Shillings.",
+            "cover_image": "This is the primary image shown on cards.",
         }
 
     def clean_price(self):

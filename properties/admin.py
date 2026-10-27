@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from .models import Agent, Category, Property, SavedProperty
+from .models import Agent, Category, Property, PropertyImage, SavedProperty
 
 
 # ------------------------------------------------------------------
@@ -104,6 +104,17 @@ class PriceBandFilter(admin.SimpleListFilter):
 
 
 # ------------------------------------------------------------------
+# Property Gallery Inline
+# ------------------------------------------------------------------
+class PropertyImageInline(admin.TabularInline):
+    model = PropertyImage
+    fk_name = "property_ref"  # Points to the renamed ForeignKey field
+    extra = 3    # Shows 3 empty upload fields by default
+    max_num = 4  # Enforces the max of 4 images per property
+    can_delete = True
+
+
+# ------------------------------------------------------------------
 # Properties
 # ------------------------------------------------------------------
 @admin.register(Property)
@@ -128,6 +139,7 @@ class PropertyAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     save_on_top = True
     actions = ("approve_listings", "reject_listings")
+    inlines = [PropertyImageInline]
 
     fieldsets = (
         ("Listing", {
