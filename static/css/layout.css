@@ -193,7 +193,7 @@
     object-fit: cover;
 }
 
-/* FIXED DROPDOWN */
+/* ---------- User Dropdown ---------- */
 .user-dropdown {
     position: absolute;
     top: calc(100% + 8px);
@@ -206,6 +206,12 @@
     display: flex;
     flex-direction: column;
 }
+
+/* The class we use to hide it */
+.user-dropdown.is-hidden {
+    display: none !important;
+}
+
 .user-dropdown-head {
     padding: var(--space-4);
     border-bottom: 1px solid var(--color-border);
@@ -239,7 +245,7 @@
     color: var(--color-slate);
 }
 
-/* FIXED LOGOUT FORM & BUTTON */
+/* ---------- Logout Button ---------- */
 .user-dropdown-form {
     margin: 0;
     display: block;
@@ -249,7 +255,10 @@
     color: #991b1b;
     border-bottom: none;
 }
-.user-dropdown-logout:hover { color: #dc2626; background: #fef2f2; }
+.user-dropdown-logout:hover { 
+    color: #dc2626; 
+    background: #fef2f2; 
+}
 
 /* ---------- Mobile Drawer Auth/User blocks ---------- */
 .mobile-user,

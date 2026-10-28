@@ -52,7 +52,9 @@
                             {{ user.profile.initial|default:user.email|slice:":1"|upper }}
                         {% endif %}
                     </button>
-                    <div class="user-dropdown" hidden data-user-dropdown>
+                    
+                    <!-- Changed `hidden` to `class="is-hidden"` -->
+                    <div class="user-dropdown is-hidden" data-user-dropdown>
                         <div class="user-dropdown-head">
                             <p class="user-name">{{ user.profile.name|default:user.email }}</p>
                             <p class="user-email">{{ user.email }}</p>
