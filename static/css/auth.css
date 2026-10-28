@@ -1,87 +1,262 @@
-/* Add to the existing auth.css */
+/* =========================================================
+   Makao — Modern Auth Pages (Floating Card Style)
+   ========================================================= */
 
-.auth-container--narrow {
-    grid-template-columns: 1fr;
-    max-width: 480px;
+/* ---------- Wrapper & Card ---------- */
+.auth-wrapper {
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-offwhite);
+    padding: var(--space-6) var(--space-4);
 }
 
-.auth-panel--center {
+.auth-card {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 24px; /* The rounded corners from the image */
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    min-height: 600px;
+}
+
+/* ---------- Left Side: Form ---------- */
+.auth-card-form {
+    flex: 1;
+    padding: var(--space-8) var(--space-7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-form-inner {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.auth-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    color: var(--color-navy);
+    text-decoration: none;
+}
+.auth-logo-text {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: -0.02em;
+}
+
+.auth-header-text {
+    margin-bottom: var(--space-6);
+}
+.auth-title {
+    font-size: 1.75rem;
+    color: var(--color-navy);
+    margin: 0 0 var(--space-1);
+    font-weight: 700;
+}
+.auth-sub {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+    margin: 0;
+}
+
+/* ---------- Form Elements ---------- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+.auth-form .form-field {
+    gap: var(--space-1);
+}
+.auth-form label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-taupe);
+    font-weight: var(--fw-bold);
+}
+.auth-form .form-input {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    border-radius: 6px; /* Slightly rounded inputs */
+    font-size: var(--fs-sm);
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.auth-form .form-input:focus {
+    border-color: var(--color-slate);
+    box-shadow: 0 0 0 3px rgba(68, 122, 195, 0.1);
+    outline: none;
+}
+
+.auth-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-2);
+}
+.auth-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+.auth-checkbox input {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--color-slate);
+}
+.auth-link-small {
+    font-size: 12px;
+    color: var(--color-slate);
+    font-weight: var(--fw-semibold);
+}
+.auth-link-small:hover { color: var(--color-navy); }
+
+/* ---------- Button Group ---------- */
+.auth-button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+}
+.auth-btn-main {
+    padding: var(--space-3);
+    border-radius: 6px;
+    font-size: var(--fs-sm);
+}
+.auth-btn-secondary {
+    padding: var(--space-3);
+    border-radius: 6px;
+    font-size: var(--fs-sm);
     text-align: center;
-}
-.auth-panel--center .auth-sub {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 380px;
-}
-
-/* ---------- Google button ---------- */
-.btn-google {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-5);
-    background: var(--color-white);
-    color: var(--color-navy);
-    border: 1px solid var(--color-border-strong, #17214c);
-    font-weight: var(--fw-semibold);
-    font-size: var(--fs-sm);
-    transition: background var(--t-fast), color var(--t-fast);
-}
-.btn-google:hover {
-    background: var(--color-offwhite);
 }
 
-/* ---------- Divider ---------- */
-.auth-divider {
+/* ---------- Divider & Google ---------- */
+.auth-divider-modern {
     display: flex;
     align-items: center;
     gap: var(--space-3);
     color: var(--color-taupe);
-    font-size: var(--fs-xs);
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: var(--space-2) 0;
+    letter-spacing: 0.05em;
+    margin: var(--space-5) 0 var(--space-4);
 }
-.auth-divider::before,
-.auth-divider::after {
+.auth-divider-modern::before,
+.auth-divider-modern::after {
     content: "";
     flex: 1;
     height: 1px;
     background: var(--color-border);
 }
 
-/* ---------- Remember + forgot row ---------- */
-.auth-row {
+.btn-google {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-}
-.auth-checkbox {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--fs-sm);
-    color: var(--color-text-muted);
-}
-.auth-checkbox input {
-    width: auto;
-    accent-color: var(--color-slate);
-}
-.auth-link-small {
-    font-size: var(--fs-sm);
-    color: var(--color-slate);
-    font-weight: var(--fw-medium);
-}
-.auth-link-small:hover { color: var(--color-navy); }
-
-/* ---------- Actions row ---------- */
-.auth-actions {
-    display: flex;
-    gap: var(--space-3);
     justify-content: center;
-    flex-wrap: wrap;
-    margin-top: var(--space-4);
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--color-white);
+    color: var(--color-navy);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+    transition: background var(--t-fast);
+}
+.btn-google:hover { background: var(--color-offwhite); }
+
+/* ---------- Footer terms ---------- */
+.auth-terms {
+    font-size: 10px;
+    color: var(--color-taupe);
+    text-align: center;
+    margin-top: var(--space-6);
+    line-height: 1.5;
+}
+.auth-terms a {
+    color: var(--color-navy);
+    text-decoration: underline;
+}
+
+/* ---------- Right Side: Image ---------- */
+.auth-card-image {
+    flex: 1;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-navy);
+    display: none; /* Hidden on mobile */
+    border-radius: 0 24px 24px 0;
+}
+
+@media (min-width: 900px) {
+    .auth-card-image {
+        display: block; /* Show on desktop */
+    }
+}
+
+.auth-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(23, 33, 76, 0.1), rgba(23, 33, 76, 0.4));
+    border-radius: 0 24px 24px 0;
+}
+
+/* Yellow Arrow Button */
+.auth-image-arrow {
+    position: absolute;
+    top: 50%;
+    left: -24px; /* Hangs off the edge */
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: #facc15; /* Yellow accent */
+    color: var(--color-navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform var(--t-fast), background var(--t-fast);
+    z-index: 2;
+}
+.auth-image-arrow:hover {
+    background: #eab308;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* ---------- Mobile Responsive ---------- */
+@media (max-width: 900px) {
+    .auth-wrapper {
+        padding: 0;
+        background: var(--color-white);
+    }
+    .auth-card {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: 100vh;
+    }
+    .auth-card-form {
+        padding: var(--space-6) var(--space-5);
+    }
 }

@@ -10,42 +10,42 @@
 
 {% block content %}
 
-<section class="auth-page">
-    <div class="container auth-container">
+<section class="auth-wrapper">
+    <div class="auth-card">
+        
+        <!-- Left Side: Form -->
+        <div class="auth-card-form">
+            <div class="auth-form-inner">
+                
+                <a href="{% url 'core:home' %}" class="auth-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+                        <path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+                        <path d="M10 20v-5h4v5" stroke="var(--color-slate)" stroke-width="2" stroke-linecap="square"/>
+                    </svg>
+                    <span class="auth-logo-text">makao<span class="logo-dot">.</span></span>
+                </a>
 
-        <div class="auth-panel">
-            <p class="auth-eyebrow">Join Makao</p>
-            <h1 class="auth-title">Create your account</h1>
-            <p class="auth-sub">Save properties, sync across devices, and list your own.</p>
-
-            <a href="{% provider_login_url 'google' %}" class="btn btn-google btn-block">
-                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                Sign up with Google
-            </a>
-
-            <div class="auth-divider"><span>or</span></div>
-
-            <form method="post" action="{% url 'account_signup' %}" class="auth-form" novalidate>
-                {% csrf_token %}
-
-                {% if form.non_field_errors %}
-                    <div class="form-errors">
-                        {% for err in form.non_field_errors %}<p>{{ err }}</p>{% endfor %}
-                    </div>
-                {% endif %}
-
-                <div class="form-field">
-                    <label for="{{ form.email.id_for_label }}">Email</label>
-                    {{ form.email }}
-                    {% if form.email.errors %}<p class="field-error">{{ form.email.errors.0 }}</p>{% endif %}
+                <div class="auth-header-text">
+                    <h1 class="auth-title">Create an account</h1>
+                    <p class="auth-sub">Save properties, sync across devices, and list your own.</p>
                 </div>
 
-                <div class="form-row">
+                <form method="post" action="{% url 'account_signup' %}" class="auth-form" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for err in form.non_field_errors %}<p>{{ err }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-field">
+                        <label for="{{ form.email.id_for_label }}">Email address</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}<p class="field-error">{{ form.email.errors.0 }}</p>{% endif %}
+                    </div>
+
                     <div class="form-field">
                         <label for="{{ form.password1.id_for_label }}">Password</label>
                         {{ form.password1 }}
@@ -57,29 +57,49 @@
                         {{ form.password2 }}
                         {% if form.password2.errors %}<p class="field-error">{{ form.password2.errors.0 }}</p>{% endif %}
                     </div>
+
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                    {% endif %}
+
+                    <div class="auth-button-group" style="grid-template-columns: 1fr;">
+                        <button type="submit" class="btn btn-primary auth-btn-main">Create account</button>
+                    </div>
+                </form>
+
+                <!-- Divider -->
+                <div class="auth-divider-modern">
+                    <span>or sign up with</span>
                 </div>
 
-                {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
-                {% endif %}
+                <!-- Google Button -->
+                <a href="{% provider_login_url 'google' %}" class="btn-google">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                </a>
 
-                <button type="submit" class="btn btn-primary btn-block auth-btn">Create account</button>
-            </form>
-
-            <p class="auth-switch">
-                Already have an account? <a href="{% url 'account_login' %}">Log in</a>
-            </p>
+                <p class="auth-terms">
+                    Already have an account? <a href="{% url 'account_login' %}">Log in</a>
+                </p>
+            </div>
         </div>
 
-        <aside class="auth-aside">
-            <h2 class="auth-aside-title">Why create an account?</h2>
-            <ul class="auth-aside-list">
-                <li>Save properties and access them from any device</li>
-                <li>Get notified when prices drop or new listings match your search</li>
-                <li>List your own properties in minutes</li>
-                <li>Contact hosts and agents without retyping your details</li>
-            </ul>
-        </aside>
+        <!-- Right Side: Image -->
+        <div class="auth-card-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80');">
+            <div class="auth-image-overlay"></div>
+            
+            <!-- Floating Arrow Button -->
+            <a href="{% url 'core:home' %}" class="auth-image-arrow" title="Back to home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
 
     </div>
 </section>
